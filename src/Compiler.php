@@ -58,7 +58,9 @@ abstract class Compiler
         $version = 0;
         foreach ($this->data as $namespace => $config) {
             foreach ($config['files'] as $file) {
-                $version = max($version, filemtime($config['dir'] . $file));
+                if (file_exists($config['dir'] . $file)) {
+                    $version = max($version, filemtime($config['dir'] . $file));
+                }
             }
         }
         return $version;
